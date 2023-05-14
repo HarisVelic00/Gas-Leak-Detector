@@ -1,0 +1,24 @@
+--cpu Cortex-M3
+"gassensor\startup_stm32f103x6.o"
+"gassensor\lcd_txt.o"
+"gassensor\main.o"
+"gassensor\stm32f1xx_it.o"
+"gassensor\stm32f1xx_hal_msp.o"
+"gassensor\stm32f1xx_hal_gpio_ex.o"
+"gassensor\stm32f1xx_hal_tim.o"
+"gassensor\stm32f1xx_hal_tim_ex.o"
+"gassensor\stm32f1xx_hal.o"
+"gassensor\stm32f1xx_hal_rcc.o"
+"gassensor\stm32f1xx_hal_rcc_ex.o"
+"gassensor\stm32f1xx_hal_gpio.o"
+"gassensor\stm32f1xx_hal_dma.o"
+"gassensor\stm32f1xx_hal_cortex.o"
+"gassensor\stm32f1xx_hal_pwr.o"
+"gassensor\stm32f1xx_hal_flash.o"
+"gassensor\stm32f1xx_hal_flash_ex.o"
+"gassensor\stm32f1xx_hal_exti.o"
+"gassensor\system_stm32f1xx.o"
+--strict --scatter "GasSensor\GasSensor.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "GasSensor.map" -o GasSensor\GasSensor.axf
