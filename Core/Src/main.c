@@ -57,8 +57,7 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t MSG1[16] = {0};
-uint8_t MSG2[16] = {0};
+
 /* USER CODE END 0 */
 
 /**
@@ -102,15 +101,17 @@ int main(void)
 		if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)) // if the pin is HIGH 
 		{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 1);
-			lcd_puts(0, 0, (int8_t*)"GAS DETECTED!!");
+			lcd_puts(0, 0, (int8_t*)"GAS DETECTED!!!");
 			lcd_puts(1, 0, (int8_t*)"FAN ACTIVATED!");
 		} 
 		else if(!HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)){
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0);
-			lcd_puts(0, 0, (int8_t*)"NO PROBLEMS!!!");
-			lcd_puts(1, 0, (int8_t*)"FAN NOT ACTIVE");
+			lcd_puts(0, 0, (int8_t*)"NO GAS DETECTED");
+			lcd_puts(1, 0, (int8_t*)"FAN NOT ACTIVE!");
 		}
     /* USER CODE END WHILE */
 
@@ -217,14 +218,14 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, Fan_Pin|Alarm_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Fan_Pin|Alarm_Pin|LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, RS_Pin|E_Pin|D4_Pin|D5_Pin
                           |D6_Pin|D7_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : Fan_Pin Alarm_Pin */
-  GPIO_InitStruct.Pin = Fan_Pin|Alarm_Pin;
+  /*Configure GPIO pins : Fan_Pin Alarm_Pin LED_Pin */
+  GPIO_InitStruct.Pin = Fan_Pin|Alarm_Pin|LED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -244,6 +245,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

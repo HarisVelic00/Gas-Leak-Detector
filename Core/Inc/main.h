@@ -61,8 +61,11 @@ void Error_Handler(void);
 #define Fan_GPIO_Port GPIOA
 #define Sensor_Pin GPIO_PIN_4
 #define Sensor_GPIO_Port GPIOA
+#define Sensor_EXTI_IRQn EXTI4_IRQn
 #define Alarm_Pin GPIO_PIN_6
 #define Alarm_GPIO_Port GPIOA
+#define LED_Pin GPIO_PIN_7
+#define LED_GPIO_Port GPIOA
 #define RS_Pin GPIO_PIN_10
 #define RS_GPIO_Port GPIOB
 #define E_Pin GPIO_PIN_11
