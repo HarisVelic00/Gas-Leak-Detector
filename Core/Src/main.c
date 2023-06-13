@@ -102,14 +102,14 @@ int main(void)
 		{
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 1);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0);
 			lcd_puts(0, 0, (int8_t*)"GAS DETECTED!!!");
 			lcd_puts(1, 0, (int8_t*)"FAN ACTIVATED!");
 		} 
 		else if(!HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_4)){
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
 			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 0);
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, 1);
 			lcd_puts(0, 0, (int8_t*)"NO GAS DETECTED");
 			lcd_puts(1, 0, (int8_t*)"FAN NOT ACTIVE!");
 		}
